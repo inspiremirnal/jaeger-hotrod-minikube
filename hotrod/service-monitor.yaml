@@ -12,5 +12,4 @@ spec:
       app: hotrod-metrics
   endpoints:
   - port: svc-metrics
-    path: /debug/vars
     interval: 15s
