@@ -1,6 +1,6 @@
 # Install the operator first
-kubectl create namespace observability
-kubectl create -f https://github.com/jaegertracing/jaeger-operator/releases/download/v1.29.1/jaeger-operator.yaml -n observability
+- kubectl create namespace observability
+- kubectl create -f https://github.com/jaegertracing/jaeger-operator/releases/download/v1.29.1/jaeger-operator.yaml -n observability
 
 
 # Create Hotrod namespace
