@@ -27,3 +27,49 @@ spec:
         - containerPort: 8082
         - containerPort: 8083
           name: svc-metrics
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hotrod-metrics
+  namespace: hotrod
+  labels:
+    app: hotrod-metrics
+spec:
+  selector:
+    app: hotrod-app
+  ports:
+  - port: 8083
+    targetPort: 8083
+    name: svc-metrics
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hotrod-service
+  namespace: hotrod
+spec:
+  selector:
+    app: hotrod-app
+  ports:
+  - port: 8080
+    targetPort: 8080
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: hotrod-servicemonitor
+  labels:
+    prometheus: kube-prometheus
+    release: prometheus
+    role: service-monitors
+spec:
+  selector:
+    matchLabels:
+      app: hotrod-metrics
+  endpoints:
+  - port: svc-metrics
+    interval: 15s
